@@ -1,2 +1,5 @@
-# senpseve
-A simple static webserver, in an app.
+# Senpsèvè
+
+> A simple static webserver, in an app.
+
+* * *
