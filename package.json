@@ -25,6 +25,9 @@
     }
   ],
   "dependencies": {
+    "empty-port": "0.0.1",
+    "express": "^4.13.3",
+    "human-size": "^1.1.0",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
