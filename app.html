@@ -5,6 +5,47 @@
         <title>Tèsèvè</title>
     </head>
     <body>
-        <p>hello, world!</p>
+        <header>
+            <div class="buttons">
+                <a href="javascript:void(0);" id="close">close</a>
+                <a href="javascript:void(0);" id="minify">minify</a>
+                <a href="javascript:void(0);" id="magnify">magnify</a>
+            </div>
+            <h1>Tèsèvè</h1>
+        </header>
+        <main>
+            <form action="javascript:void(0);">
+                <fieldset class="main-parameters">
+                    <div class="root-selector">
+                        <label for="root-input">folder:</label>
+                        <div class="input-holder">
+                            <span id="root-preview"></span>
+                            <button id="root-select">choose</button>
+                        </div>
+                    </div>
+                    <div class="port-selector">
+                        <label for="port-input">port:</label>
+                        <input id="port-input" type="number" min="1000" max="65535" />
+                    </div>
+                    <div class="link-holder">
+                        <a href="http://localhost:00000" id="server-link">http://localhost:00000</a>
+                    </div>
+                </fieldset>
+                <div id="logs">
+                    <table>
+                        <thead>
+                            <th><!-- timestamp --></th>
+                            <th>method</th>
+                            <th>name</th>
+                        </thead>
+                        <tbody id="logs-content"></tbody>
+                    </table>
+                    <div class="tools">
+                        <a href="javascript:void(0);" id="empty-logs">clear logs</a>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <script>require( "./js/main.js" )</script>
     </body>
 </html>
