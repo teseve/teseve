@@ -1,4 +1,4 @@
-/* SenpSèvè
+/* Tèsèvè
  * A simple static webserver, in an app.
  *
  * ~/app.js - Application entry point
@@ -7,7 +7,7 @@
 
 "use strict";
 
-var app = require( "app" ),
+var electron = require( "app" ),
     BrowserWindow = require( "browser-window" ),
     path = require( "path" ),
     lodash = require( "lodash" );
@@ -19,16 +19,16 @@ var oApp = {
     "windows": {}
 };
 
-app.on( "window-all-closed", function() {
+electron.on( "window-all-closed", function() {
     if( process.platform !== "darwin" ) {
-        app.quit();
+        electron.quit();
     }
 } );
 
-app.on( "ready", function() {
+electron.on( "ready", function() {
 
     var oWindow = new BrowserWindow( {
-        "id": lodash.uniqueId( "senpseve_window_" ),
+        "id": lodash.uniqueId( "teseve_window_" ),
         "width": 640,
         "height": 480,
         "icon": path.resolve( __dirname, "assets/icon.png" )
