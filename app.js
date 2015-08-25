@@ -13,9 +13,6 @@ var electron = require( "app" ),
     lodash = require( "lodash" ),
     os = require( "os" );
 
-require( "electron-debug" )();
-require( "crash-reporter" ).start();
-
 global.app = {
     "windows": {}
 };
@@ -48,11 +45,11 @@ electron.on( "ready", function() {
 
     global.app.windows[ oWindow.id ] = oWindow;
 
-    oWindow.loadUrl( "file://" + __dirname + "/app.html" );
-
     oWindow.on( "closed", function( a, b, c, d ) {
         delete global.app.windows[ this.id ];
         oWindow = null;
     } );
+
+    oWindow.loadUrl( "file://" + __dirname + "/app.html" );
 
 } );

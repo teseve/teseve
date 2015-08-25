@@ -32,33 +32,44 @@ var oCurrentWindow = remote.getCurrentWindow(),
     iPort,
     bServerIsConfigured = false;
 
+oCurrentWindow.on( "blur", function() {
+    document.body.classList.remove( "enabled" );
+} );
+
+oCurrentWindow.on( "focus", function() {
+    document.body.classList.add( "enabled" );
+} );
+
 fServerLogging = function( oRequest, oResponse, fNext ) {
-    var aLogLine = [ "<tr>" ];
-        aLogLine.push( "<td>" + ( ( new Date() ).toTimeString().split( " " )[ 0 ] ) + "</td>" );
-        aLogLine.push( "<td>" + ( oRequest.method ) + "</td>" );
-        aLogLine.push( "<td>" + ( oRequest.url ) + "</td>" );
-        aLogLine.push( "</tr>" );
+    var aLogLine = [ "<li>" ];
+        aLogLine.push( "<time>" + ( ( new Date() ).toTimeString().split( " " )[ 0 ] ) + "</time>" );
+        aLogLine.push( "<span>" + ( oRequest.method ) + "</span>" );
+        aLogLine.push( "<strong>" + ( oRequest.url ) + "</strong>" );
+        aLogLine.push( "</li>" );
     $logsContainer.insertAdjacentHTML( "beforeend", aLogLine.join( "" ) );
     oRequest.connection.setTimeout( 2000 );
     fNext();
 };
 
 fReconfigureServer = function() {
+    if( !iPort || !sRootPath ) {
+        return;
+    }
+
     var sURL = "http://localhost:" + iPort;
+    document.body.classList.remove( "ready" );
     $serverLink.setAttribute( "href", sURL );
     $serverLink.innerHTML = sURL;
 
     if( oCurrentWindow.server != null ) {
-        oCurrentWindow.server.close( function() {
-            console.log( "!!!" );
-        } );
+        oCurrentWindow.server.close();
     }
 
     express().use( fServerLogging ).use( express.static( sRootPath ) ).listen( iPort, function() {
         oCurrentWindow.server = this;
+        bServerIsConfigured = true;
+        document.body.classList.add( "ready" );
     } );
-
-    bServerIsConfigured = true;
 };
 
 fSelectRoot = function( e ) {

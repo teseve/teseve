@@ -1,0 +1,314 @@
+/* Tèsèvè
+ * A simple static webserver, in an app.
+ *
+ * ~/css/styles.css - Main Application styles
+ * started at 25/08/2015, by leny@flatLand!
+ */
+
+@font-face {
+    font-family: "FiraSans";
+    src: url( "../assets/fonts/firasans/FiraSans-Book.woff" ) format( "woff" );
+}
+@font-face {
+    font-family: "FiraMono";
+    src: url( "../assets/fonts/firasans/FiraMono-Regular.woff" ) format( "woff" );
+}
+
+html {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: white;
+    box-sizing: border-box;
+    font: normal 62.5% FiraSans, sans-serif;
+    color: #444;
+    -webkit-user-select: none;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizelegibility;
+    overflow: hidden;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    outline: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    position: relative;
+    height: 32px;
+    -webkit-app-region: drag;
+}
+
+header .buttons {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .buttons a {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    background: #E5E5E5;
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    box-shadow: 0px 1px 1px 0px rgba( 234, 234, 234, 0.50 );
+    font-size: 0;
+    -webkit-app-region: no-drag;
+    cursor: default;
+}
+.enabled header .buttons a:hover {
+    box-shadow: 0px 1px 1px 0px rgba( 195, 198, 201, 0.50 );
+}
+.enabled header .buttons a:hover:active {
+    cursor: default;
+    -webkit-filter: brightness( 92% );
+}
+
+.enabled header .buttons a[id="close"] {
+    background-color: #FF5F52;
+    border-color: #E33E32;
+}
+
+.enabled header .buttons a[id="minify"] {
+    background-color: #FFBE05;
+    border-color: #E2A100;
+}
+
+.enabled header .buttons a[id="magnify"] {
+    background-color: #15CC35;
+    border-color: #17B230;
+}
+
+.enabled header .buttons:hover a[id="close"] {
+    background-image: url( ../assets/img/close.png );
+}
+
+.enabled header .buttons:hover a[id="minify"] {
+    background-image: url( ../assets/img/minimize.png );
+}
+
+.enabled header .buttons:hover a[id="magnify"] {
+    background-image: url( ../assets/img/fullscreen.png );
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx) {
+    .enabled header .buttons:hover a[id="close"] {
+        background-image: url( ../assets/img/close@2x.png );
+        background-size: 10px 10px;
+    }
+
+    .enabled header .buttons:hover a[id="minify"] {
+        background-image: url( ../assets/img/minimize@2x.png );
+        background-size: 10px 10px;
+    }
+
+    .enabled header .buttons:hover a[id="magnify"] {
+        background-image: url( ../assets/img/fullscreen@2x.png );
+        background-size: 10px 10px;
+    }
+}
+
+header h1 {
+    margin: 0 auto;
+    padding: 1px 0 0;
+    opacity: .5;
+    font: normal 1.2rem/32px FiraSans;
+    color: #444;
+    text-align: center;
+}
+
+.enabled h1 {
+    opacity: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 5px 10px 10px;
+    opacity: .5;
+}
+
+.enabled form {
+    opacity: 1;
+}
+
+fieldset.main-parameters {
+    display: flex;
+    border: 0;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+fieldset.main-parameters .params {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+
+fieldset.main-parameters .params:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+fieldset.main-parameters .params .root-selector {
+    flex: 1;
+    display: inline-flex;
+    align-items: left;
+    justify-content: left;
+}
+
+fieldset.main-parameters .params .root-selector label {
+    width: 60px;
+    font: normal 1.4rem/26px FiraSans, sans-serif;
+    text-align: right;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .params .root-selector .input-holder {
+    position: relative;
+    flex: 1;
+    margin-left: 5px;
+    padding: 4px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    font: normal 1.4rem/1 FiraMono, monospace;
+    color: #444;
+    text-align: left;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .params .root-selector .input-holder button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid #d3d3d3;
+    padding: 0 10px;
+    font: normal 1.2rem/26px FiraSans, sans-serif;
+    color: #444;
+    cursor: pointer;
+}
+
+fieldset.main-parameters .params .root-selector .input-holder span {
+    color: #777;
+}
+
+fieldset.main-parameters .params .port-selector {
+    width: 140px;
+    text-align: right;
+}
+
+fieldset.main-parameters .params .port-selector label {
+    display: inline-block;
+    font: normal 1.4rem FiraSans, sans-serif;
+    text-align: right;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .params .port-selector input {
+    margin-left: 5px;
+    padding: 4px 5px;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    font: normal 1.4rem/1 FiraMono, monospace;
+    color: #444;
+    text-align: right;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .link-holder {
+    padding: 10px 0 5px 65px;
+    opacity: 0;
+    font: normal 1.25rem/1 FiraSans, sans-serif;
+    text-align: left;
+    transition: opacity 1s ease-in-out;
+}
+
+fieldset.main-parameters .link-holder a {
+    color: #22b8eb;
+}
+
+.ready fieldset.main-parameters .link-holder {
+    opacity: 1;
+}
+
+[id="logs"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 5px;
+}
+
+[id="logs"] .logs-box {
+    position: relative;
+    flex: 1;
+}
+
+[id="logs"] .logs-box ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+[id="logs"] .logs-box ul li {
+    padding: 5px;
+}
+
+[id="logs"] .logs-box ul li time {
+    display: inline-block;
+    margin-right: 10px;
+    font: normal 1.2rem/1 FiraSans, sans-serif;
+    color: #666;
+}
+
+[id="logs"] .logs-box ul li span {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 2px 5px 0;
+    background: #999;
+    border-radius: 2px;
+    font: normal 1.1rem/1 FiraSans, sans-serif;
+    color: white;
+}
+
+[id="logs"] .logs-box ul li strong {
+    font: normal 1.2rem/1 FiraSans, sans-serif;
+}
+
+[id="logs"] .logs-box ul li:nth-child(even) {
+    background: #efefef;
+}
+
+[id="logs"] .tools {
+    padding: 5px 0 0;
+    text-align: right;
+}
+
+[id="logs"] .tools a {
+    font: normal 1.1rem/1 FiraSans, sans-serif;
+    color: #22b8eb;
+    text-decoration: none;
+}
