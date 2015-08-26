@@ -78,7 +78,7 @@ fSelectRoot = function( e ) {
     e.preventDefault();
     dialog.showOpenDialog( oCurrentWindow, { "properties": [ "openDirectory" ] }, function( aFolders ) {
         if( lodash.isArray( aFolders ) ) {
-            $rootSelectorPreview.innerHTML = ( sRootPath = aFolders[ 0 ] );
+            $rootSelectorPreview.innerHTML = ( sRootPath = aFolders[ 0 ] ).replace( os.homedir(), "~" );
 
             fReconfigureServer();
         }
