@@ -11,11 +11,85 @@ var electron = require( "app" ),
     BrowserWindow = require( "browser-window" ),
     path = require( "path" ),
     lodash = require( "lodash" ),
-    os = require( "os" );
+    os = require( "os" ),
+    Menu = require( "menu" );
 
 global.app = {
     "windows": {}
 };
+
+var oMenu = [
+    {
+        "label": "Tèsèvè",
+        "submenu": [
+            {
+                "label": "About Tèsèvè",
+                "selector": "orderFrontStandardAboutPanel:"
+            },
+            {
+                "type": "separator"
+            },
+            {
+                "label": "Services",
+                "submenu": []
+            },
+            {
+                "type": "separator"
+            },
+            {
+                "label": "Hide Electron",
+                "accelerator": "CmdOrCtrl+H",
+                "selector": "hide:"
+            },
+            {
+                "label": "Hide Others",
+                "accelerator": "CmdOrCtrl+Shift+H",
+                "selector": "hideOtherApplications:"
+            },
+            {
+                "label": "Show All",
+                "selector": "unhideAllApplications:"
+            },
+            {
+                "type": "separator"
+            },
+            {
+                "label": "Quit",
+                "accelerator": "CmdOrCtrl+Q",
+                "selector": "terminate:"
+            }
+        ]
+    },
+    {
+        "label": "Server",
+        "submenu": [
+            {
+                "label": "New Server",
+                "accelerator": "CmdOrCtrl+N",
+                "click": function() {
+                    console.log( "Create new window!" );
+                }
+            },
+            {
+                "type": "separator"
+            },
+            {
+                "label": "Close Server",
+                "accelerator": "CmdOrCtrl+W",
+                "click": function() {
+                    console.log( "Close current window!" );
+                }
+            },
+            {
+                "label": "Close All Servers",
+                "accelerator": "CmdOrCtrl+Shift+W",
+                "click": function() {
+                    console.log( "Close current window!" );
+                }
+            },
+        ]
+    }
+];
 
 electron.on( "window-all-closed", function() {
     return electron.quit(); // TODO: TMP
@@ -25,6 +99,8 @@ electron.on( "window-all-closed", function() {
 } );
 
 electron.on( "ready", function() {
+
+    // Menu.setApplicationMenu( Menu.buildFromTemplate( oMenu ) );
 
     var oWindow = new BrowserWindow( {
         "id": lodash.uniqueId(),
