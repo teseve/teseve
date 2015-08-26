@@ -1,6 +1,6 @@
 {
   "name": "teseve",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple static webserver, in an app.",
   "main": "app.js",
   "homepage": "https://github.com/leny/teseve",
