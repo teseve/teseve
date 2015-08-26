@@ -245,6 +245,7 @@ header h1 {
     font: normal 1.2rem/32px FiraSans;
     color: #444;
     text-align: center;
+    cursor: default;
 }
 
 .enabled h1 {
@@ -299,12 +300,12 @@ fieldset.main-parameters .params .root-selector .input-holder {
     position: relative;
     flex: 1;
     margin-left: 5px;
-    padding: 4px 5px;
+    padding: 3px 5px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     border: 1px solid #d3d3d3;
     border-radius: 3px;
-    font: normal 1.4rem/1 FiraMono, monospace;
+    font: normal 1.4rem/26px FiraMono, monospace;
     color: #444;
     text-align: left;
     vertical-align: middle;
@@ -359,6 +360,10 @@ fieldset.main-parameters .link-holder {
     transition: opacity 1s ease-in-out;
 }
 
+fieldset.main-parameters .link-holder span {
+    cursor: default;
+}
+
 fieldset.main-parameters .link-holder a {
     color: #22b8eb;
 }
@@ -377,6 +382,7 @@ fieldset.main-parameters .link-holder a {
 [id="logs"] .logs-box {
     position: relative;
     flex: 1;
+    cursor: default;
 }
 
 [id="logs"] .logs-box ul {
