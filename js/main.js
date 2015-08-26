@@ -10,6 +10,7 @@
 var remote = window.require( "remote" ),
     dialog = remote.require( "dialog" ),
     shell = remote.require( "shell" ),
+    os = require( "os" ),
     lodash = require( "lodash" ),
     emptyPort = require( "empty-port" ),
     express = require( "express" ),
@@ -47,6 +48,7 @@ fServerLogging = function( oRequest, oResponse, fNext ) {
         aLogLine.push( "<strong>" + ( oRequest.url ) + "</strong>" );
         aLogLine.push( "</li>" );
     $logsContainer.insertAdjacentHTML( "beforeend", aLogLine.join( "" ) );
+    $logsContainer.scrollTop = $logsContainer.scrollHeight;
     oRequest.connection.setTimeout( 2000 );
     fNext();
 };
@@ -93,6 +95,17 @@ fChangePort = function( e ) {
 fInitDOM = function( oError, iGivenPort ) {
     iPort = iGivenPort || 12345;
 
+    switch( os.platform() ) {
+        case "win32":
+        case "win64":
+            document.body.classList.add( "windows" );
+            break;
+
+        default:
+            document.body.classList.add( os.platform() );
+            break;
+    }
+
     ( $rootSelectorButton = document.getElementById( "root-select" ) ).addEventListener( "click", fSelectRoot );
     $rootSelectorPreview = document.getElementById( "root-preview" );
     $logsContainer = document.getElementById( "logs-content" );
@@ -118,6 +131,7 @@ fInitDOM = function( oError, iGivenPort ) {
     } );
 
     document.getElementById( "magnify" ).addEventListener( "click", function() {
+        this.classList[ oCurrentWindow.isMaximized() ? "remove" : "add" ]( "enabled" );
         return oCurrentWindow.maximize() && false;
     } );
 
