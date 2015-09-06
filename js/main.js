@@ -89,7 +89,7 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
             "url": oRequest.url,
             "hasParent": oRequest.url !== "/",
             "files": aFiles,
-            "version": require( "../package.json" ).version,
+            "version": require( __dirname + "/../package.json" ).version,
             "root": sRootPath.replace( os.homedir(), "~" ),
             "port": iPort
         } );
@@ -114,11 +114,11 @@ fReconfigureServer = function() {
 
     express()
         .set( "view engine", "jade" )
-        .set( "views", "./views" )
+        .set( "views", __dirname + "/../views" )
         .use( fServerLogging )
         .use( fCheckForAutoIndex )
         .use( fServerLogging )
-        .use( "/__dev", express.static( "./autoindexes" ) )
+        .use( "/__dev", express.static( __dirname + "/../autoindexes" ) )
         .use( express.static( sRootPath ) )
         .listen( iPort, function() {
             oCurrentWindow.server = this;
