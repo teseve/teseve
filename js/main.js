@@ -15,12 +15,17 @@ var remote = window.require( "remote" ),
     emptyPort = require( "empty-port" ),
     express = require( "express" ),
     humanSize = require( "human-size" ),
-    fs = require( "fs" );
+    mimetype = require( "mimetype" ),
+    fs = require( "fs" ),
+    path = require( "path" ),
+    moment = require( "moment" ),
+    jade = require( "jade" );
 
 var oCurrentWindow = remote.getCurrentWindow(),
     $rootSelectorButton,
     $rootSelectorPreview,
     $portInput,
+    $autoindexToggler,
     $serverLink,
     $logsContainer,
     $emptyLogs,
@@ -29,8 +34,10 @@ var oCurrentWindow = remote.getCurrentWindow(),
     fChangePort,
     fReconfigureServer,
     fServerLogging,
+    fCheckForAutoIndex,
     sRootPath,
     iPort,
+    rAutoindexPath = /^\/__dev\//,
     bServerIsConfigured = false;
 
 oCurrentWindow.on( "blur", function() {
@@ -42,6 +49,9 @@ oCurrentWindow.on( "focus", function() {
 } );
 
 fServerLogging = function( oRequest, oResponse, fNext ) {
+    if( rAutoindexPath.test( oRequest.url ) || oRequest.url === "/favicon.ico" ) {
+        return fNext();
+    }
     var aLogLine = [ "<li>" ];
         aLogLine.push( "<time>" + ( ( new Date() ).toTimeString().split( " " )[ 0 ] ) + "</time>" );
         aLogLine.push( "<span>" + ( oRequest.method ) + "</span>" );
@@ -51,6 +61,41 @@ fServerLogging = function( oRequest, oResponse, fNext ) {
     $logsContainer.scrollTop = $logsContainer.scrollHeight;
     oRequest.connection.setTimeout( 2000 );
     fNext();
+};
+
+fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
+    var aFiles, sPath;
+    if( oRequest.url.substr( -1 ) === "/" && $autoindexToggler.checked ) {
+        sPath = path.join( sRootPath, oRequest.url );
+        aFiles = [];
+        fs.readdirSync( sPath ).forEach( function( sFile ) {
+            var oFile, sMimeType;
+            if( sFile.substr( 0, 1 ) !== "." ) {
+                oFile = fs.statSync( sPath + "/" + sFile );
+                sMimeType = mimetype.lookup( sFile );
+                aFiles.push( {
+                    "name": sFile,
+                    "size": humanSize( oFile.size ),
+                    "time": {
+                        "raw": oFile.mtime,
+                        "human": moment( oFile.mtime ).format( "YYYY-MM-DD HH:mm:SS" )
+                    },
+                    "mime": !!oFile.isDirectory() ? "folder" : ( sMimeType ? sMimeType.split( "/" )[ 0 ] : "unknown" ),
+                    "isFolder": !!oFile.isDirectory()
+                } );
+            }
+        } );
+        oResponse.render( "autoindex.jade", {
+            "url": oRequest.url,
+            "hasParent": oRequest.url !== "/",
+            "files": aFiles,
+            "version": require( "../package.json" ).version,
+            "root": sRootPath.replace( os.homedir(), "~" ),
+            "port": iPort
+        } );
+    } else {
+        fNext();
+    }
 };
 
 fReconfigureServer = function() {
@@ -67,19 +112,28 @@ fReconfigureServer = function() {
         oCurrentWindow.server.close();
     }
 
-    express().use( fServerLogging ).use( express.static( sRootPath ) ).listen( iPort, function() {
-        oCurrentWindow.server = this;
-        bServerIsConfigured = true;
-        document.body.classList.add( "ready" );
-    } );
+    express()
+        .set( "view engine", "jade" )
+        .set( "views", "./views" )
+        .use( fServerLogging )
+        .use( fCheckForAutoIndex )
+        .use( fServerLogging )
+        .use( "/__dev", express.static( "./autoindexes" ) )
+        .use( express.static( sRootPath ) )
+        .listen( iPort, function() {
+            oCurrentWindow.server = this;
+            bServerIsConfigured = true;
+            document.body.classList.add( "ready" );
+        } );
 };
 
 fSelectRoot = function( e ) {
+    var that = this;
     e.preventDefault();
     dialog.showOpenDialog( oCurrentWindow, { "properties": [ "openDirectory" ] }, function( aFolders ) {
         if( lodash.isArray( aFolders ) ) {
             $rootSelectorPreview.innerHTML = ( sRootPath = aFolders[ 0 ] ).replace( os.homedir(), "~" );
-
+            that.innerHTML = "change";
             fReconfigureServer();
         }
     } );
@@ -121,6 +175,8 @@ fInitDOM = function( oError, iGivenPort ) {
     } );
     ( $portInput = document.getElementById( "port-input" ) ).value = iPort;
     $portInput.addEventListener( "change", fChangePort );
+
+    ( $autoindexToggler = document.getElementById( "autoindex-state" ) );
 
     document.getElementById( "close" ).addEventListener( "click", function() {
         return oCurrentWindow.close() && false;

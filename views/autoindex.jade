@@ -1,0 +1,44 @@
+doctype html
+html( lang="en" )
+    head
+        meta( charset="UTF-8" )/
+        title
+            | Index of
+            = " "
+            = url
+        link( rel="stylesheet", href="/__dev/styles.css" )/
+    body
+        main
+            .box
+                h1
+                    | Index of
+                    = " "
+                    strong= url
+
+                ul
+                    if hasParent
+                        li
+                            a( href=".." )
+                                img( src="/__dev/icons/parent.png", alt="" )/
+                                strong parent
+                    each file in files
+                        li
+                            a( href=file.name, class=[ file.isFolder ? "folder" : "" ] )
+                                img( src="/__dev/icons/#{ file.mime }.png", alt="" )/
+                                strong= file.name + ( file.isFolder ? "/" : "" )
+                                time( datetime=file.time.raw )= file.time.human
+                                span= file.isFolder ? "-" : file.size
+
+            footer
+                a( href="//leny.github.com/teseve", rel="external", target="_new" )
+                    | Tèsèvè/
+                    = version
+                = " "
+                | Serving
+                = " "
+                span= root
+                = " "
+                | at
+                = " "
+                | localhost:
+                = port

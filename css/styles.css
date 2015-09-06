@@ -271,6 +271,7 @@ fieldset.main-parameters {
 }
 
 fieldset.main-parameters .params {
+    position: relative;
     display: flex;
     align-items: right;
     justify-content: right;
@@ -353,6 +354,7 @@ fieldset.main-parameters .params .port-selector input {
 }
 
 fieldset.main-parameters .link-holder {
+    width: 460px;
     padding: 10px 0 5px 65px;
     opacity: 0;
     font: normal 1.25rem/1 FiraSans, sans-serif;
@@ -370,6 +372,50 @@ fieldset.main-parameters .link-holder a {
 
 .ready fieldset.main-parameters .link-holder {
     opacity: 1;
+}
+
+fieldset.main-parameters .params .autoindex-option {
+    position: absolute;
+    right: 0;
+    bottom: -25px;
+}
+
+fieldset.main-parameters .params .autoindex-option label {
+    cursor: pointer;
+}
+
+fieldset.main-parameters .params .autoindex-option label input {
+    position: absolute;
+    left: -9999rem;
+}
+
+fieldset.main-parameters .params .autoindex-option label span {
+    position: relative;
+    font: normal 1.25rem/1 FiraSans, sans-serif;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .params .autoindex-option label span:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 8px 0 0;
+    background: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+fieldset.main-parameters .params .autoindex-option label input:checked + span:after {
+    content: "✔";
+    position: absolute;
+    left: 2px;
+    top: -2px;
+    font: normal 2.4rem/1 FiraSans, sans-serif;
+    color: #22b8eb;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
 }
 
 [id="logs"] {

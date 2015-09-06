@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: #efefef;
+    font: normal 62.5%/1.25 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #666;
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+body {
+    padding: 1px 0 0;
+}
+
+main {
+    width: 640px;
+    margin: 120px auto 0;
+}
+
+.box {
+    margin: 0 auto 10px;
+    padding: 15px 20px 10px;
+    background: white;
+    box-shadow: 0 0 20px silver;
+}
+
+h1 {
+    margin: 0 auto 15px;
+    padding: 0 0 5px;
+    border-bottom: 1px solid silver;
+    font: 100 2.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 strong {
+    font-weight: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    margin: 0 auto 10px;
+}
+
+li a {
+    display: block;
+    font: normal 1.2rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+    text-decoration: none;
+}
+
+li a img {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    border: 0;
+}
+
+li a strong {
+    display: inline-block;
+    width: 350px;
+    margin-right: 10px;
+    overflow: hidden;
+    color: #88e;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+li a time {
+    display: inline-block;
+    width: 125px;
+    margin-right: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    color: grey;
+    text-align: right;
+}
+
+li a span {
+    display: inline-block;
+    width: 75px;
+    overflow: hidden;
+    vertical-align: middle;
+    color: grey;
+    text-align: center;
+}
+
+footer {
+    font: 100 1.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    text-align: right;
+}
+
+footer a {
+    color: #88e;
+    text-decoration: none;
+}
+
+footer span {
+    font-weight: normal;
+}
