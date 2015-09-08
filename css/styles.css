@@ -56,6 +56,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-app-region: no-drag;
 }
 
 .darwin header .buttons a {
@@ -68,7 +69,6 @@ header {
     border-radius: 6px;
     box-shadow: 0px 1px 1px 0px rgba( 234, 234, 234, 0.50 );
     font-size: 0;
-    -webkit-app-region: no-drag;
     cursor: default;
 }
 .darwin.enabled header .buttons a:hover {
@@ -142,6 +142,7 @@ header {
     flex: 0 1 auto;
     align-items: flex-end;
     justify-content: flex-end;
+    -webkit-app-region: no-drag;
 }
 
 .windows header .buttons a {

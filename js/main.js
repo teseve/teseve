@@ -179,6 +179,7 @@ fInitDOM = function( oError, iGivenPort ) {
     ( $autoindexToggler = document.getElementById( "autoindex-state" ) );
 
     document.getElementById( "close" ).addEventListener( "click", function() {
+        console.log( "!!!" );
         return oCurrentWindow.close() && false;
     } );
 
@@ -188,7 +189,7 @@ fInitDOM = function( oError, iGivenPort ) {
 
     document.getElementById( "magnify" ).addEventListener( "click", function() {
         this.classList[ oCurrentWindow.isMaximized() ? "remove" : "add" ]( "enabled" );
-        return oCurrentWindow.maximize() && false;
+        return ( oCurrentWindow.isMaximized() ? oCurrentWindow.unmaximize() : oCurrentWindow.maximize() ) && false;
     } );
 
     oCurrentWindow.show();
