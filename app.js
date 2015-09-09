@@ -117,7 +117,7 @@ electron.on( "ready", function() {
         "show": false
     } );
 
-    oWindow.openDevTools();
+    // oWindow.openDevTools();
 
     global.app.windows[ oWindow.id ] = oWindow;
 

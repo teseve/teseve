@@ -179,7 +179,6 @@ fInitDOM = function( oError, iGivenPort ) {
     ( $autoindexToggler = document.getElementById( "autoindex-state" ) );
 
     document.getElementById( "close" ).addEventListener( "click", function() {
-        console.log( "!!!" );
         return oCurrentWindow.close() && false;
     } );
 
