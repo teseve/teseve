@@ -24,6 +24,13 @@
       "url": "https://github.com/leny/teseve/blob/master/LICENSE"
     }
   ],
+  "scripts": {
+    "build:osx": "./node_modules/.bin/electron-packager ./ Teseve --platform=darwin --arch=all --version=0.32.0 --icon=icon.icns --out=./releases/mac --ignore=./releases --ignore=./node_modules/electron-builder",
+    "build:win32": "./node_modules/.bin/electron-packager ./ Teseve --platform=win32 --arch=ia32 --version=0.32.0 --icon=icon.ico --out=./releases/win32 --ignore=./releases --ignore=./node_modules/electron-builder",
+    "build:win64": "./node_modules/.bin/electron-packager ./ Teseve --platform=win32 --arch=x64 --version=0.32.0 --icon=icon.ico --out=./releases/win64 --ignore=./releases --ignore=./node_modules/electron-builder",
+    "pack:win32": "npm run build:win32 && ./node_modules/.bin/electron-builder \"./releases/win32/Teseve-win32-ia32\" --platform=win --out=./releases/win32 --config=builder.json",
+    "pack:win64": "npm run build:win64 && ./node_modules/.bin/electron-builder \"./releases/win64/Teseve-win32-x64\" --platform=win --out=./releases/win64 --config=builder.json"
+  },
   "dependencies": {
     "empty-port": "0.0.1",
     "express": "^4.13.3",
@@ -33,5 +40,8 @@
     "mimetype": "0.0.7",
     "moment": "^2.10.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "electron-builder": "^2.0.0",
+    "electron-packager": "^5.1.0"
+  }
 }
