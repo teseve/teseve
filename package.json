@@ -24,24 +24,26 @@
       "url": "https://github.com/leny/teseve/blob/master/LICENSE"
     }
   ],
-  "scripts": {
-    "build:osx": "./node_modules/.bin/electron-packager ./ Teseve --platform=darwin --arch=all --version=0.32.0 --icon=icon.icns --out=./releases/mac --ignore=./releases --ignore=./node_modules/electron-builder",
-    "build:win32": "./node_modules/.bin/electron-packager ./ Teseve --platform=win32 --arch=ia32 --version=0.32.0 --icon=icon.ico --out=./releases/win32 --ignore=./releases --ignore=./node_modules/electron-builder",
-    "build:win64": "./node_modules/.bin/electron-packager ./ Teseve --platform=win32 --arch=x64 --version=0.32.0 --icon=icon.ico --out=./releases/win64 --ignore=./releases --ignore=./node_modules/electron-builder",
-    "pack:win32": "npm run build:win32 && ./node_modules/.bin/electron-builder \"./releases/win32/Teseve-win32-ia32\" --platform=win --out=./releases/win32 --config=builder.json",
-    "pack:win64": "npm run build:win64 && ./node_modules/.bin/electron-builder \"./releases/win64/Teseve-win32-x64\" --platform=win --out=./releases/win64 --config=builder.json"
-  },
+  "electron-version": "0.32.0",
   "dependencies": {
     "empty-port": "0.0.1",
     "express": "^4.13.3",
-    "express3-handlebars": "^0.5.2",
+    "express-handlebars": "^2.0.1",
     "human-size": "^1.1.0",
     "lodash": "^3.10.1",
     "mimetype": "0.0.7",
     "moment": "^2.10.6"
   },
   "devDependencies": {
-    "electron-builder": "^2.0.0",
-    "electron-packager": "^5.1.0"
+    "electron-prebuilt": "^0.32.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-electron": "^2.0.0",
+    "grunt-newer": "^1.1.1",
+    "grunt-rcedit": "^0.3.3",
+    "grunt-shell": "^1.1.2",
+    "load-grunt-tasks": "^3.2.0"
   }
 }

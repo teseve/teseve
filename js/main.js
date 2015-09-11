@@ -19,7 +19,7 @@ var remote = window.require( "remote" ),
     fs = require( "fs" ),
     path = require( "path" ),
     moment = require( "moment" ),
-    expressHBS = require( "express3-handlebars" );
+    expressHBS = require( "express-handlebars" );
 
 var oCurrentWindow = remote.getCurrentWindow(),
     $rootSelectorButton,

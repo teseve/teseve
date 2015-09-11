@@ -16,8 +16,8 @@ You can build the app by yourself:
 
 1. Clone the repository
 2. Run `npm install` to get the dependencies
-3. Run `electron .` to build & run the app
-4. Use [electron-packager](https://github.com/maxogden/electron-packager) if you want to build a binary.
+3. Run `grunt` to build & run the app
+4. Use `grunt release` if you want to build a binary.
 
 ## Contributing
 
@@ -28,7 +28,7 @@ You can build the app by yourself:
 * [x] Allow to drag'n'drop a folder on window to set the server root
 * [ ] Multiple-window feature, managing multiple servers
 * [ ] About window
-* [ ] Refactor repo structure + builder
+* [x] Refactor repo structure + builder
 * [ ] All-around refactor
 * [ ] Implement main menu for OSX & Windows
 * [x] Test Windows

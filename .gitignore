@@ -1,7 +1,8 @@
 node_modules
 bin
-builds
+build
 cache
 releases
+dist
 bower_components
 .idea
