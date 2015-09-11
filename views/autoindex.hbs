@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Index of {{url}}</title>
+        <link rel="stylesheet" href="/__dev/styles.css" />
+    </head>
+    <body>
+        <main>
+            <div class="box">
+                <h1>
+                    Index of
+                    <strong>{{url}}</strong>
+                </h1>
+                <ul>
+                    {{#if hasParent}}
+                        <li>
+                            <a href="..">
+                                <img src="/__dev/icons/parent.png" alt="" />
+                                <strong>parent</strong>
+                            </a>
+                        </li>
+                    {{/if}}
+                    {{#each files}}
+                        <li>
+                            <a href="{{name}}" class="{{#if isFolder}}folder{{/if}}">
+                                <img src="/__dev/icons/{{mime}}.png" alt="" />
+                                <strong>{{name}}{{#if isFolder}}/{{/if}}</strong>
+                                <time datetime="{{time.raw}}">{{time.human}}</time>
+                                <span>{{#if isFolder}}-{{else}}{{size}}{{/if}}</span>
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <footer>
+                <a href="//leny.github.com/teseve" rel="external" target="_new">Tèsèvè/{{version}}</a>
+                Serving <span>{{root}}</span> at localhost:{{port}}
+            </footer>
+        </main>
+    </body>
+</html>

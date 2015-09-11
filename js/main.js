@@ -19,7 +19,7 @@ var remote = window.require( "remote" ),
     fs = require( "fs" ),
     path = require( "path" ),
     moment = require( "moment" ),
-    jade = require( "jade" );
+    expressHBS = require( "express3-handlebars" );
 
 var oCurrentWindow = remote.getCurrentWindow(),
     $rootSelectorButton,
@@ -85,7 +85,7 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
                 } );
             }
         } );
-        oResponse.render( "autoindex.jade", {
+        oResponse.render( "autoindex.hbs", {
             "url": oRequest.url,
             "hasParent": oRequest.url !== "/",
             "files": aFiles,
@@ -113,7 +113,8 @@ fReconfigureServer = function() {
     }
 
     express()
-        .set( "view engine", "jade" )
+        .engine( "hbs", expressHBS( { "extname": "hbs" } ) )
+        .set( "view engine", "hbs" )
         .set( "views", __dirname + "/../views" )
         .use( fServerLogging )
         .use( fCheckForAutoIndex )

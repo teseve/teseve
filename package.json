@@ -34,8 +34,8 @@
   "dependencies": {
     "empty-port": "0.0.1",
     "express": "^4.13.3",
+    "express3-handlebars": "^0.5.2",
     "human-size": "^1.1.0",
-    "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "mimetype": "0.0.7",
     "moment": "^2.10.6"
