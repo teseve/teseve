@@ -8,7 +8,7 @@
 
 ### Download the binaries
 
-You can download the binaries on the [releases page](https://github.com/leny/teseve/releases)
+You can download the binaries on the [releases page](https://github.com/teseve/teseve/releases)
 
 ### Build the app from the source
 
