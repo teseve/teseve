@@ -35,6 +35,8 @@ var oCurrentWindow = remote.getCurrentWindow(),
     fReconfigureServer,
     fServerLogging,
     fCheckForAutoIndex,
+    fEventNullifier,
+    fFileDropped,
     sRootPath,
     iPort,
     rAutoindexPath = /^\/__dev\//,
@@ -47,6 +49,25 @@ oCurrentWindow.on( "blur", function() {
 oCurrentWindow.on( "focus", function() {
     document.body.classList.add( "enabled" );
 } );
+
+fEventNullifier = function( e ) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+};
+
+fFileDropped = function( e ) {
+    var oFile = e.dataTransfer.files[ 0 ];
+    e.preventDefault();
+    e.stopPropagation();
+    document.body.classList.remove( "filedrag" );
+    if( fs.statSync( oFile.path ).isDirectory() ) {
+        $rootSelectorPreview.innerHTML = ( sRootPath = oFile.path ).replace( os.homedir(), "~" );
+        $rootSelectorButton.innerHTML = "change";
+        fReconfigureServer();
+    }
+    return false;
+};
 
 fServerLogging = function( oRequest, oResponse, fNext ) {
     if( rAutoindexPath.test( oRequest.url ) || oRequest.url === "/favicon.ico" ) {
@@ -197,6 +218,22 @@ fInitDOM = function( oError, iGivenPort ) {
         this.classList[ oCurrentWindow.isMaximized() ? "remove" : "add" ]( "enabled" );
         return ( oCurrentWindow.isMaximized() ? oCurrentWindow.unmaximize() : oCurrentWindow.maximize() ) && false;
     } );
+
+    var eventDebug = function( e ) { e.preventDefault(); console.log( e.type ); return false; };
+
+    // managing drag'n'drop
+    document.body.addEventListener( "dragover", fEventNullifier );
+    document.body.addEventListener( "dragenter", function( e ) {
+        document.body.classList.add( "filedrag" );
+        fEventNullifier.call( this, e );
+    } );
+    document.body.addEventListener( "dragleave", function( e ) {
+        document.body.classList.remove( "filedrag" );
+        fEventNullifier.call( this, e );
+    } );
+    document.body.addEventListener( "drop", fFileDropped );
+
+    document.body.addEventListener();
 
     oCurrentWindow.show();
 };
