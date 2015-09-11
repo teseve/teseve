@@ -67,6 +67,12 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
     var aFiles, sPath;
     if( oRequest.url.substr( -1 ) === "/" && $autoindexToggler.checked ) {
         sPath = path.join( sRootPath, oRequest.url );
+        if( fs.existsSync( sPath + "/index.html" ) ) {
+            return oResponse.redirect( "/index.html" );
+        }
+        if( fs.existsSync( sPath + "/index.htm" ) ) {
+            return oResponse.redirect( "/index.htm" );
+        }
         aFiles = [];
         fs.readdirSync( sPath ).forEach( function( sFile ) {
             var oFile, sMimeType;
