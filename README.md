@@ -36,6 +36,7 @@ You can build the app by yourself:
 * [ ] Presentation website
 
 ## Release History
+* **2015/09/11:** `0.3.0` drag'n'drop feature, new build system
 * **2015/09/06:** `0.2.0` autoindex feature
 * **2015/08/26:** `0.1.0` basic features
 * **2015/08/25:** starting project
