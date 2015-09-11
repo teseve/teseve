@@ -24,7 +24,7 @@
       "url": "https://github.com/leny/teseve/blob/master/LICENSE"
     }
   ],
-  "electron-version": "0.32.0",
+  "electron-version": "0.32.1",
   "dependencies": {
     "empty-port": "0.0.1",
     "express": "^4.13.3",
