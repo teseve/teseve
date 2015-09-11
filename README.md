@@ -25,12 +25,14 @@ You can build the app by yourself:
 
 ### TODO
 
-* [ ] Allow to drag'n'drop a folder on window to set the server root
+* [x] Allow to drag'n'drop a folder on window to set the server root
 * [ ] Multiple-window feature, managing multiple servers
 * [ ] About window
+* [ ] Refactor repo structure + builder
 * [ ] All-around refactor
 * [ ] Implement main menu for OSX & Windows
-* [ ] Test Windows & Linux
+* [x] Test Windows
+* [ ] Test Linux
 * [ ] Presentation website
 
 ## Release History
