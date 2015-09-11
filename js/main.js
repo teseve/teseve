@@ -89,10 +89,10 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
     if( oRequest.url.substr( -1 ) === "/" && $autoindexToggler.checked ) {
         sPath = path.join( sRootPath, oRequest.url );
         if( fs.existsSync( sPath + "/index.html" ) ) {
-            return oResponse.redirect( "/index.html" );
+            return oResponse.sendFile( sPath + "/index.html" );
         }
         if( fs.existsSync( sPath + "/index.htm" ) ) {
-            return oResponse.redirect( "/index.htm" );
+            return oResponse.sendFile( sPath + "/index.htm" );
         }
         aFiles = [];
         fs.readdirSync( sPath ).forEach( function( sFile ) {
@@ -143,7 +143,6 @@ fReconfigureServer = function() {
         .engine( "hbs", expressHBS( { "extname": "hbs" } ) )
         .set( "view engine", "hbs" )
         .set( "views", __dirname + "/../views" )
-        .use( fServerLogging )
         .use( fCheckForAutoIndex )
         .use( fServerLogging )
         .use( "/__dev", express.static( __dirname + "/../autoindexes" ) )
