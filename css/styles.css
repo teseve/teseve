@@ -345,12 +345,10 @@ fieldset.main-parameters .params .root-selector .input-holder {
     position: relative;
     flex: 1;
     margin-left: 5px;
-    padding: 3px 5px 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 8px 5px 0;
     border: 1px solid #d3d3d3;
     border-radius: 3px;
-    font: normal 1.4rem/26px FiraMono, monospace;
+    font: normal 1.4rem/1 FiraMono, monospace;
     color: #444;
     text-align: left;
     vertical-align: middle;
@@ -371,7 +369,12 @@ fieldset.main-parameters .params .root-selector .input-holder button {
 }
 
 fieldset.main-parameters .params .root-selector .input-holder span {
+    display: inline-block;
+    width: 325px;
+    overflow: hidden;
     color: #777;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 fieldset.main-parameters .params .port-selector {
