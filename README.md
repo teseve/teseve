@@ -4,6 +4,10 @@
 
 * * *
 
+![screenshot](http://teseve.github.io/assets/img/screenshot.png)
+
+* * *
+
 ## Getting Started
 
 ### Download the binaries
