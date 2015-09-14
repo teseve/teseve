@@ -232,8 +232,6 @@ fInitDOM = function( oError, iGivenPort ) {
     } );
     document.body.addEventListener( "drop", fFileDropped );
 
-    document.body.addEventListener();
-
     oCurrentWindow.show();
 };
 
