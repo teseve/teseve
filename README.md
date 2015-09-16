@@ -30,6 +30,7 @@ You can build the app by yourself:
 ### TODO
 
 * [x] Allow to drag'n'drop a folder on window to set the server root
+* [ ] Auto-try to resolve url like `page` to `page.html`
 * [ ] Multiple-window feature, managing multiple servers
 * [ ] About window
 * [x] Refactor repo structure + builder
@@ -37,7 +38,7 @@ You can build the app by yourself:
 * [ ] Implement main menu for OSX & Windows
 * [x] Test Windows
 * [ ] Test Linux
-* [ ] Presentation website
+* [x] Presentation website
 
 ## Release History
 * **2015/09/11:** `0.3.0` drag'n'drop feature, new build system
