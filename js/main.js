@@ -37,6 +37,7 @@ var oCurrentWindow = remote.getCurrentWindow(),
     fCheckForAutoIndex,
     fEventNullifier,
     fFileDropped,
+    fParseFolder,
     sRootPath,
     iPort,
     rAutoindexPath = /^\/__dev\//,
@@ -84,8 +85,30 @@ fServerLogging = function( oRequest, oResponse, fNext ) {
     fNext();
 };
 
+fParseFolder = function( sPath ) {
+    var aFiles = [];
+    fs.readdirSync( sPath ).forEach( function( sFile ) {
+        var oFile, sMimeType;
+        if( sFile.substr( 0, 1 ) !== "." ) {
+            oFile = fs.statSync( sPath + "/" + sFile );
+            sMimeType = mimetype.lookup( sFile );
+            aFiles.push( {
+                "isFolder": !!oFile.isDirectory(),
+                "mime": !!oFile.isDirectory() ? "folder" : ( sMimeType ? sMimeType.split( "/" )[ 0 ] : "unknown" ),
+                "name": sFile,
+                "size": humanSize( oFile.size ),
+                "time": {
+                    "raw": oFile.mtime,
+                    "human": moment( oFile.mtime ).format( "YYYY-MM-DD HH:mm:SS" )
+                }
+            } );
+        }
+    } );
+    return aFiles;
+};
+
 fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
-    var aFiles, sPath;
+    var sPath;
     if( oRequest.url.substr( -1 ) === "/" && $autoindexToggler.checked ) {
         sPath = path.join( sRootPath, oRequest.url );
         if( fs.existsSync( sPath + "/index.html" ) ) {
@@ -94,31 +117,13 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
         if( fs.existsSync( sPath + "/index.htm" ) ) {
             return oResponse.sendFile( sPath + "/index.htm" );
         }
-        aFiles = [];
-        fs.readdirSync( sPath ).forEach( function( sFile ) {
-            var oFile, sMimeType;
-            if( sFile.substr( 0, 1 ) !== "." ) {
-                oFile = fs.statSync( sPath + "/" + sFile );
-                sMimeType = mimetype.lookup( sFile );
-                aFiles.push( {
-                    "name": sFile,
-                    "size": humanSize( oFile.size ),
-                    "time": {
-                        "raw": oFile.mtime,
-                        "human": moment( oFile.mtime ).format( "YYYY-MM-DD HH:mm:SS" )
-                    },
-                    "mime": !!oFile.isDirectory() ? "folder" : ( sMimeType ? sMimeType.split( "/" )[ 0 ] : "unknown" ),
-                    "isFolder": !!oFile.isDirectory()
-                } );
-            }
-        } );
         oResponse.render( "autoindex.hbs", {
-            "url": oRequest.url,
+            "files": fParseFolder( sPath ),
             "hasParent": oRequest.url !== "/",
-            "files": aFiles,
-            "version": require( __dirname + "/../package.json" ).version,
+            "port": iPort,
             "root": sRootPath.replace( os.homedir(), "~" ),
-            "port": iPort
+            "folder": oRequest.url,
+            "version": require( __dirname + "/../package.json" ).version
         } );
     } else {
         fNext();
