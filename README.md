@@ -30,8 +30,8 @@ You can build the app by yourself:
 ### TODO
 
 * [x] Allow to drag'n'drop a folder on window to set the server root
-* [ ] Auto-try to resolve url like `page` to `page.html`
-* [ ] Custom 404 page
+* [x] Auto-try to resolve url like `page` to `page.html`
+* [x] Custom 404 page
 * [ ] Multiple-window feature, managing multiple servers
 * [ ] About window
 * [x] Refactor repo structure + builder
@@ -42,6 +42,7 @@ You can build the app by yourself:
 * [x] Presentation website
 
 ## Release History
+* **2015/09/21:** `0.4.0` 404 managment, auto-try to resolve url
 * **2015/09/11:** `0.3.0` drag'n'drop feature, new build system
 * **2015/09/06:** `0.2.0` autoindex feature
 * **2015/08/26:** `0.1.0` basic features
