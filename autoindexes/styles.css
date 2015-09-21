@@ -32,6 +32,7 @@ h1 {
     padding: 0 0 5px;
     border-bottom: 1px solid silver;
     font: 100 2.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
 }
 
 h1 strong {
@@ -102,4 +103,26 @@ footer a {
 
 footer span {
     font-weight: normal;
+}
+
+.box.error {
+    margin: 0 auto 20px;
+    padding: 15px 20px 10px;
+    background: #c30;
+    box-shadow: 0 0 20px silver;
+}
+
+.box.error h1 {
+    color: white;
+}
+
+.box.error p {
+    margin: 0 auto 10px;
+    font: 100 1.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.box.error p strong {
+    font: normal 1em Monaco, Consolas, "Lucida Console", monospace;
 }

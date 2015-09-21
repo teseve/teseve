@@ -7,6 +7,15 @@
     </head>
     <body>
         <main>
+            {{#if error}}
+                <div class="box error">
+                    <h1>
+                        Error: 404 Not found
+                    </h1>
+                    <p>The resource <strong>{{url}}</strong> could not be found.</p>
+                </div>
+            {{/if}}
+
             <div class="box">
                 <h1>
                     Index of

@@ -152,6 +152,32 @@ fReconfigureServer = function() {
         .use( fServerLogging )
         .use( "/__dev", express.static( __dirname + "/../autoindexes" ) )
         .use( express.static( sRootPath ) )
+        .all( "*", function( oRequest, oResponse ) {
+            var _ref, sExtension, sDirname;
+            if( oRequest.url === "/favicon.ico" ) {
+                return oResponse.status( 404 ).send( "404 Not found" );
+            }
+            if( oRequest.url.indexOf( "." ) > -1 ) {
+                sExtension = ( _ref = oRequest.url.split( "." ) )[ _ref.length - 1 ];
+                if( sExtension !== "html" && sExtension !== "htm" ) {
+                    return oResponse.redirect( oRequest.url + ".html" );
+                } else {
+                    sDirname = path.dirname( oRequest.url );
+                    oResponse.status( 404 ).render( "autoindex.hbs", {
+                        "error": true,
+                        "files": fParseFolder( path.join( sRootPath, sDirname ) ),
+                        "hasParent": sDirname !== "/",
+                        "port": iPort,
+                        "root": sRootPath.replace( os.homedir(), "~" ),
+                        "folder": sDirname,
+                        "url": oRequest.url,
+                        "version": require( __dirname + "/../package.json" ).version
+                    } );
+                }
+            } else {
+                return oResponse.redirect( oRequest.url + ".html" );
+            }
+        } )
         .listen( iPort, function() {
             oCurrentWindow.server = this;
             bServerIsConfigured = true;
