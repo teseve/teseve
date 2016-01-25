@@ -237,6 +237,92 @@ header {
 }
 
 
+/* Linux Buttons */
+
+.linux header .buttons {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+}
+
+.linux header .buttons a {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    background: #E5E5E5;
+    border: 1px solid #D3D3D3;
+    border-radius: 6px;
+    box-shadow: 0px 1px 1px 0px rgba( 234, 234, 234, 0.50 );
+    font-size: 0;
+    cursor: default;
+}
+.linux.enabled header .buttons a:hover {
+    box-shadow: 0px 1px 1px 0px rgba( 195, 198, 201, 0.50 );
+}
+.linux.enabled header .buttons a:hover:active {
+    cursor: default;
+    -webkit-filter: brightness( 92% );
+}
+
+.linux.enabled header .buttons a[id="close"] {
+    background-color: #FF5F52;
+    border-color: #E33E32;
+}
+
+.linux.enabled header .buttons a[id="minify"] {
+    background-color: #FFBE05;
+    border-color: #E2A100;
+}
+
+.linux.enabled header .buttons a[id="magnify"] {
+    background-color: #15CC35;
+    border-color: #17B230;
+}
+
+.linux.enabled header .buttons:hover a[id="close"] {
+    background-image: url( ../assets/img/close.png );
+}
+
+.linux.enabled header .buttons:hover a[id="minify"] {
+    background-image: url( ../assets/img/minimize.png );
+}
+
+.linux.enabled header .buttons:hover a[id="magnify"] {
+    background-image: url( ../assets/img/fullscreen.png );
+}
+
+.linux.enabled header .buttons:hover a[id="magnify"].enabled {
+    background-image: url( ../assets/img/fullscreenclose.png );
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx) {
+    .linux.enabled header .buttons:hover a[id="close"] {
+        background-image: url( ../assets/img/close@2x.png );
+        background-size: 10px 10px;
+    }
+
+    .linux.enabled header .buttons:hover a[id="minify"] {
+        background-image: url( ../assets/img/minimize@2x.png );
+        background-size: 10px 10px;
+    }
+
+    .linux.enabled header .buttons:hover a[id="magnify"] {
+        background-image: url( ../assets/img/fullscreen@2x.png );
+        background-size: 10px 10px;
+    }
+
+    .linux.enabled header .buttons:hover a[id="magnify"].enabled {
+        background-image: url( ../assets/img/fullscreenclose@2x.png );
+        background-size: 10px 10px;
+    }
+}
+
+
 /* ----- */
 
 header h1 {
