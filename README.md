@@ -38,7 +38,7 @@ You can build the app by yourself:
 * [ ] All-around refactor
 * [ ] Implement main menu for OSX & Windows
 * [x] Test Windows
-* [ ] Test Linux
+* [x] Test Linux
 * [x] Presentation website
 
 ## Release History
