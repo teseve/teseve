@@ -12,7 +12,11 @@
 
 ### Download the binaries
 
-You can download the binaries on the [releases page](https://github.com/teseve/teseve/releases)
+You can download the binaries on the [releases page](https://github.com/teseve/teseve/releases).
+
+#### Cask
+
+If you are on Mac OS X and use [Cask](https://caskroom.github.io), you can install Teseve by typing the following command in your terminal : `brew cask install teseve`.
 
 ### Build the app from the source
 
