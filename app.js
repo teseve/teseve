@@ -67,41 +67,31 @@ var oMenu = [
                 "label": "New Server",
                 "accelerator": "CmdOrCtrl+N",
                 "click": function() {
-                    console.log( "Create new window!" );
+                    fCreateNewWindow();
                 }
-            },
-            {
-                "type": "separator"
-            },
-            {
-                "label": "Close Server",
-                "accelerator": "CmdOrCtrl+W",
-                "click": function() {
-                    console.log( "Close current window!" );
-                }
-            },
-            {
-                "label": "Close All Servers",
-                "accelerator": "CmdOrCtrl+Shift+W",
-                "click": function() {
-                    console.log( "Close current window!" );
-                }
-            },
+            // },
+            // {
+            //     "type": "separator"
+            // },
+            // {
+            //     "label": "Close Server",
+            //     "accelerator": "CmdOrCtrl+W",
+            //     "click": function() {
+            //         console.log( "Close current window!" );
+            //     }
+            // },
+            // {
+            //     "label": "Close All Servers",
+            //     "accelerator": "CmdOrCtrl+Shift+W",
+            //     "click": function() {
+            //         console.log( "Close current window!" );
+            //     }
+            }
         ]
     }
 ];
 
-electron.on( "window-all-closed", function() {
-    return electron.quit(); // TODO: TMP
-    if( process.platform !== "darwin" ) {
-        electron.quit();
-    }
-} );
-
-electron.on( "ready", function() {
-
-    // Menu.setApplicationMenu( Menu.buildFromTemplate( oMenu ) );
-
+var fCreateNewWindow = function() {
     var oWindow = new BrowserWindow( {
         "id": lodash.uniqueId(),
         "title": "Tèsèvè",
@@ -127,5 +117,19 @@ electron.on( "ready", function() {
     } );
 
     oWindow.loadUrl( "file://" + __dirname + "/app.html" );
+};
+
+electron.on( "window-all-closed", function() {
+    return electron.quit(); // TODO: TMP
+    if( process.platform !== "darwin" ) {
+        electron.quit();
+    }
+} );
+
+electron.on( "ready", function() {
+
+    Menu.setApplicationMenu( Menu.buildFromTemplate( oMenu ) );
+
+    fCreateNewWindow();
 
 } );
