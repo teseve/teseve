@@ -18,12 +18,7 @@
   "bugs": {
     "url": "https://github.com/teseve/teseve/issues"
   },
-  "licenses": [
-    {
-      "type": "UNLICENSE",
-      "url": "https://github.com/teseve/teseve/blob/master/LICENSE"
-    }
-  ],
+  "license": "Unlicense",
   "electron-version": "0.32.1",
   "dependencies": {
     "empty-port": "0.0.1",
