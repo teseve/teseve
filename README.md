@@ -36,7 +36,7 @@ You can build the app by yourself:
 * [x] Allow to drag'n'drop a folder on window to set the server root
 * [x] Auto-try to resolve url like `page` to `page.html`
 * [x] Custom 404 page
-* [ ] Multiple-window feature, managing multiple servers
+* [x] Multiple-window feature, managing multiple servers (**will try to publish next week!**)
 * [ ] About window
 * [x] Refactor repo structure + builder
 * [ ] All-around refactor
