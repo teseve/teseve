@@ -7,9 +7,9 @@
 
 "use strict";
 
-var remote = window.require( "remote" ),
-    dialog = remote.require( "dialog" ),
-    shell = remote.require( "shell" ),
+var remote = window.require( "electron" ).remote,
+    dialog = window.require( "electron" ).dialog,
+    shell = window.require( "electron" ).shell,
     os = require( "os" ),
     lodash = require( "lodash" ),
     emptyPort = require( "empty-port" ),

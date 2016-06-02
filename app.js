@@ -7,12 +7,13 @@
 
 "use strict";
 
-var electron = require( "app" ),
-    BrowserWindow = require( "browser-window" ),
+var electron = require( "electron" ),
+    teseve = electron.app,
+    BrowserWindow = electron.BrowserWindow,
     path = require( "path" ),
     lodash = require( "lodash" ),
     os = require( "os" ),
-    Menu = require( "menu" );
+    Menu = electron.Menu;
 
 global.app = {
     "windows": {}
@@ -92,44 +93,48 @@ var oMenu = [
 ];
 
 var fCreateNewWindow = function() {
-    var oWindow = new BrowserWindow( {
-        "id": lodash.uniqueId(),
-        "title": "Tèsèvè",
-        "icon": path.resolve( __dirname, "assets/icon.png" ),
-        "width": 640,
-        "height": 480,
-        "min-width": 640,
-        "min-height": 480,
-        "center": true,
-        "standard-window": false,
-        "resizable": true,
-        "frame": false,
-        "show": false
-    } );
+    var sNewID = lodash.uniqueId(),
+        oWindow = new BrowserWindow( {
+            "id": sNewID,
+            "title": "Tèsèvè",
+            "icon": path.resolve( __dirname, "assets/icon.png" ),
+            "width": 640,
+            "height": 480,
+            "minWidth": 640,
+            "minHeight": 480,
+            "center": true,
+            "standard-window": false,
+            "resizable": true,
+            "frame": false,
+            "show": false
+        } );
 
     // oWindow.openDevTools();
 
-    global.app.windows[ oWindow.id ] = oWindow;
+    global.app.windows[ sNewID ] = oWindow;
 
-    oWindow.on( "closed", function( a, b, c, d ) {
-        delete global.app.windows[ this.id ];
+    oWindow.on( "closed", function() {
+        delete global.app.windows[ sNewID ];
         oWindow = null;
     } );
 
-    oWindow.loadUrl( "file://" + __dirname + "/app.html" );
+    oWindow.loadURL( "file://" + __dirname + "/app.html" );
 };
 
-electron.on( "window-all-closed", function() {
-    return electron.quit(); // TODO: TMP
+teseve.on( "window-all-closed", function() {
     if( process.platform !== "darwin" ) {
         electron.quit();
     }
 } );
 
-electron.on( "ready", function() {
+teseve.on( "activate", function() {
+    if ( global.app.windows && Object.keys( global.app.windows ).length === 0 ) {
+        fCreateNewWindow();
+    }
+} );
 
+teseve.on( "ready", function() {
     Menu.setApplicationMenu( Menu.buildFromTemplate( oMenu ) );
 
     fCreateNewWindow();
-
 } );
