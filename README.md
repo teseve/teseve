@@ -46,6 +46,7 @@ You can build the app by yourself:
 * [x] Presentation website
 
 ## Release History
+* **2016/06/02:** `0.5.1` fix issues & deprecations from Electron 1.0 update
 * **2016/05/08:** `0.5.0` multiple-window managment
 * **2015/09/21:** `0.4.0` 404 managment, auto-try to resolve url
 * **2015/09/11:** `0.3.0` drag'n'drop feature, new build system
