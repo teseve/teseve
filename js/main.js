@@ -8,7 +8,7 @@
 "use strict";
 
 var remote = window.require( "electron" ).remote,
-    dialog = window.require( "electron" ).dialog,
+    dialog = remote.dialog,
     shell = window.require( "electron" ).shell,
     os = require( "os" ),
     lodash = require( "lodash" ),
@@ -111,11 +111,8 @@ fCheckForAutoIndex = function( oRequest, oResponse, fNext ) {
     var sPath;
     if( oRequest.url.substr( -1 ) === "/" && $autoindexToggler.checked ) {
         sPath = path.join( sRootPath, oRequest.url );
-        if( fs.existsSync( sPath + "/index.html" ) ) {
-            return oResponse.sendFile( sPath + "/index.html" );
-        }
-        if( fs.existsSync( sPath + "/index.htm" ) ) {
-            return oResponse.sendFile( sPath + "/index.htm" );
+        if( fs.existsSync( sPath + "/index.html" ) || fs.existsSync( sPath + "/index.htm" ) ) {
+            return fNext();
         }
         oResponse.render( "autoindex.hbs", {
             "files": fParseFolder( sPath ),
