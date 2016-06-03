@@ -58,14 +58,6 @@ module.exports = function( grunt ) {
                         "cwd": "views/",
                         "src": [ "**/*" ],
                         "dest": "build/views/"
-                    },
-                    {
-                        "expand": true,
-                        "cwd": "node_modules/",
-                        "src": Object.keys( pkg.dependencies ).map( function( dep ) {
-                            return dep + "/**/*";
-                        } ),
-                        "dest": "build/node_modules/"
                     }
                 ]
             }
@@ -139,6 +131,16 @@ module.exports = function( grunt ) {
                     }
                 }
             },
+            "dependencies": {
+                "command": "npm install --only=prod",
+                "options": {
+                    "async": true,
+                    "execOptions": {
+                        "cwd": __dirname + "/build",
+                        "env": process.env
+                    }
+                }
+            },
             "zip": {
                 "command": "ditto -c -k --sequesterRsrc --keepParent dist/" + sAppName + "-darwin-x64/" + sAppName + ".app dist/" + sAppName + "-" + pkg.version + "-mac-x64.zip"
             }
@@ -178,17 +180,34 @@ module.exports = function( grunt ) {
     ] );
 
     if( process.platform === "win32" ) {
+        grunt.registerTask( "app", [
+            "clean:release",
+            "copy:dev",
+            "shell:dependencies",
+            "electron:windows",
+            "rcedit:exes"
+        ] );
+
         grunt.registerTask( "release", [
             "clean:release",
             "copy:dev",
+            "shell:dependencies",
             "electron:windows",
             "rcedit:exes",
             "compress"
         ] );
     } else {
+        grunt.registerTask( "app", [
+            "clean:release",
+            "copy:dev",
+            "shell:dependencies",
+            "electron:osx"
+        ] );
+
         grunt.registerTask( "release", [
             "clean:release",
             "copy:dev",
+            "shell:dependencies",
             "electron:osx",
             "shell:zip"
         ] );
