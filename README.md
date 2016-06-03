@@ -46,6 +46,7 @@ You can build the app by yourself:
 * [x] Presentation website
 
 ## Release History
+* **2016/06/03:** `0.5.3` fix "choose folder" button
 * **2016/06/03:** `0.5.2` fix build process, causing missing dependencies in final app
 * **2016/06/02:** `0.5.1` fix issues & deprecations from Electron 1.0 update
 * **2016/05/08:** `0.5.0` multiple-window managment
